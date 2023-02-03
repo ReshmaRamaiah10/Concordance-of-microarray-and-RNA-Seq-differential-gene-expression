@@ -1,0 +1,14 @@
+#!/bin/bash
+
+#Data curator- Aneeq
+
+#$ -P bf528
+#$ -cwd
+
+source /etc/bashrc
+
+module load python3/3.7.9
+module load multiqc/1.10.1
+
+multiqc fastqc_results/ star_results/ -o multiqc_results
+

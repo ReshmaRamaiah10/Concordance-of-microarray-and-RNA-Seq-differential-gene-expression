@@ -1,0 +1,26 @@
+#!/bin/bash
+#$ -P bf528
+#$ -cwd
+#$ -pe omp 16
+
+# Programmer: Reshma Ramaiah
+# This script calculates feature counts from bam files
+
+source /etc/bashrc
+
+module load subread/1.6.2
+
+GTF=/project/bf528/project_3/reference/rn4_refGene_20180308.gtf
+
+# For every applicable file in our folder:
+for file in /projectnb2/bf528/users/tinman_2022/project_3/star_results/*.bam
+do
+# Create a shortened filename:
+f=$(basename “$file”)
+f=${f:0:10}
+# Run the following command:
+echo $f
+OUT=/projectnb/bf528/users/tinman_2022/project_3/Programmer/featureCounts_output/featureCounts_output$f.txt
+featureCounts -T 16 -a $GTF -o $OUT $file
+done;
+

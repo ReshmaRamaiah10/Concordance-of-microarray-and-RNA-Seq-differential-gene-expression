@@ -1,0 +1,20 @@
+#!/bin/bash
+
+# Data curator- Aneeq Husain
+
+#$ -P bf528
+#$ -cwd
+#$ -pe omp 16
+#
+source /etc/bashrc
+
+module load gcc star/2.6.0c
+
+GENOMEDIR=/project/bf528/project_3/reference/rn4_STAR
+FASTQ=/projectnb/bf528/users/tinman_2022/project_3/data
+
+STAR --genomeDir $GENOMEDIR --runThreadN 16 --readFilesIn $FASTQ/$0 $FASTQ/$1  --readFilesCommand zcat \
+  --outSAMtype BAM SortedByCoordinate \
+  --outFileNamePrefix star_results/star_$2
+
+
